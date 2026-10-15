@@ -1,0 +1,120 @@
+<!-- To insert room data -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Room - Hotel Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-insert">
+
+    <nav class="navbar">
+        <a href="index.html" class="brand">
+            <span class="brand-icon">🏨</span>
+            <span class="brand-title">Grand Horizon Hotel</span>
+        </a>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li class="dropdown">
+                <button class="dropdown-btn">
+                    Room Services <span class="dropdown-arrow">▾</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="list.html" class="dropdown-item">📋 List All Rooms</a></li>
+                    <li><a href="listOne.html" class="dropdown-item">🔍 Search Specific Room</a></li>
+                    <li><a href="insert.html" class="dropdown-item active">➕ Add New Room</a></li>
+                    <li><a href="update.html" class="dropdown-item">✏️ Update Room Details</a></li>
+                    <li><a href="delete.html" class="dropdown-item">🗑️ Delete Room</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="glass-card">
+            <h1 class="page-title">ADD NEW ROOM</h1>
+            <p class="page-subtitle">Register a new room and assign details</p>
+            <hr class="divider">
+
+            <div class="form-group">
+                <label class="form-label" for="roomId">Room ID</label>
+                <input type="number" id="roomId" class="form-input" placeholder="e.g. 101">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="roomNumber">Room Number</label>
+                <input type="text" id="roomNumber" class="form-input" placeholder="e.g. R101">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="blockName">Block Name</label>
+                <input type="text" id="blockName" class="form-input" placeholder="e.g. A Block">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="capacityOfRoom">Capacity Of Room</label>
+                <input type="number" id="capacityOfRoom" class="form-input" placeholder="e.g. 4">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="numberOfOccupied">Number Of Occupied</label>
+                <input type="number" id="numberOfOccupied" class="form-input" placeholder="e.g. 2">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="status">Status</label>
+                <select id="status" class="form-input">
+                    <option value="Available">Available</option>
+                    <option value="Occupied">Occupied</option>
+                    <option value="Maintenance">Maintenance</option>
+                </select>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary btn-block" onclick="saveRoom()">💾 Save Room</button>
+                <button class="btn btn-outline btn-block" onclick="location.href='index.html'">🏠 Home Page</button>
+            </div>
+
+            <p class="footer-text">Grand Horizon Hotel &bull; Front Office Reception</p>
+        </div>
+    </main>
+
+    <script>
+    function saveRoom()
+    {
+        let roomId = document.getElementById("roomId").value;
+        let roomNumber = document.getElementById("roomNumber").value;
+        let blockName = document.getElementById("blockName").value;
+        let capacityOfRoom = document.getElementById("capacityOfRoom").value;
+        let numberOfOccupied = document.getElementById("numberOfOccupied").value;
+        let status = document.getElementById("status").value;
+
+        if(!roomNumber || !blockName || !capacityOfRoom || !numberOfOccupied) {
+            alert("Please fill in all room details");
+            return;
+        }
+
+        fetch("/rooms",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                room_id: roomId || undefined,
+                room_number: roomNumber,
+                block_name: blockName,
+                capacity_of_room: capacityOfRoom,
+                number_of_occupied: numberOfOccupied,
+                status: status
+            })
+        })
+        .then(response=>response.text())
+        .then(message=>{
+            alert(message);
+            location.href="index.html";
+        });
+    }
+    </script>
+</body>
+</html>

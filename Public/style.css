@@ -1,0 +1,577 @@
+/* =========================================================
+   LUXURY HOTEL MANAGEMENT SYSTEM - STYLESHEET
+   =========================================================
+   Features:
+   1. Distinct luxury hotel background images for each page
+   2. Modern Glassmorphic UI with Champagne Gold Accents
+   3. Interactive CSS Dropdown Navigation Menu
+   4. Styled forms, cards, tables, and buttons
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+:root {
+    --gold: #d4af37;
+    --gold-light: #f6e58d;
+    --gold-hover: #b89324;
+    --gold-glow: rgba(212, 175, 55, 0.35);
+    
+    --bg-dark: #0b0f19;
+    --card-bg: rgba(15, 23, 42, 0.78);
+    --card-border: rgba(212, 175, 55, 0.25);
+    
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+    --success: #10b981;
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-main);
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================================================
+   PER-PAGE BACKGROUND IMAGES (HOTEL MANAGEMENT THEMED)
+   ========================================================= */
+
+/* 1. Home Page: Grand Luxury Hotel & Resort Facade */
+body.page-home {
+    background-image: 
+        linear-gradient(rgba(11, 15, 25, 0.72), rgba(11, 15, 25, 0.85)),
+        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1920&q=80');
+}
+
+/* 2. List All Guests: Grand Reception & Concierge Desk */
+body.page-list {
+    background-image: 
+        linear-gradient(rgba(11, 15, 25, 0.75), rgba(11, 15, 25, 0.88)),
+        url('https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1920&q=80');
+}
+
+/* 3. Search / List Specific Guest: Executive Lounge & Check-In Desk */
+body.page-search {
+    background-image: 
+        linear-gradient(rgba(11, 15, 25, 0.75), rgba(11, 15, 25, 0.88)),
+        url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1920&q=80');
+}
+
+/* 4. Insert / Register Guest: Deluxe Hotel Bedroom Suite */
+body.page-insert {
+    background-image: 
+        linear-gradient(rgba(11, 15, 25, 0.72), rgba(11, 15, 25, 0.85)),
+        url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1920&q=80');
+}
+
+/* 5. Update Guest: Modern Luxury Hotel Suite Interior */
+body.page-update {
+    background-image: 
+        linear-gradient(rgba(11, 15, 25, 0.72), rgba(11, 15, 25, 0.85)),
+        url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1920&q=80');
+}
+
+/* 6. Delete / Checkout Guest: Twilight Hotel Departure & Ambiance */
+body.page-delete {
+    background-image: 
+        linear-gradient(rgba(11, 15, 25, 0.78), rgba(11, 15, 25, 0.90)),
+        url('https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1920&q=80');
+}
+
+/* =========================================================
+   NAVIGATION BAR WITH DROPDOWN MENU
+   ========================================================= */
+
+.navbar {
+    width: 100%;
+    background: rgba(11, 15, 25, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--card-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--text-main);
+}
+
+.brand-icon {
+    font-size: 1.6rem;
+}
+
+.brand-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #ffffff, var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.55rem 1rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--gold-light);
+    background: rgba(212, 175, 55, 0.12);
+}
+
+/* Dropdown Menu Container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-btn {
+    cursor: pointer;
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--gold-light);
+    border: 1px solid var(--card-border);
+    padding: 0.55rem 1.2rem;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+.dropdown-btn:hover {
+    background: rgba(212, 175, 55, 0.25);
+    border-color: var(--gold);
+    box-shadow: 0 0 15px var(--gold-glow);
+}
+
+.dropdown-arrow {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* Dropdown Content */
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    min-width: 235px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    list-style: none;
+    padding: 0.5rem 0;
+    z-index: 1001;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.dropdown-item:hover {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--gold-light);
+    padding-left: 1.55rem;
+}
+
+.dropdown-item.active {
+    color: var(--gold);
+    font-weight: 600;
+    background: rgba(212, 175, 55, 0.1);
+}
+
+/* Styled Select Dropdown (Alternative / Quick Jump) */
+.quick-dropdown-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.quick-select {
+    padding: 0.6rem 1rem;
+    background: rgba(11, 15, 25, 0.75);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    color: var(--gold-light);
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+    transition: var(--transition);
+}
+
+.quick-select:focus, .quick-select:hover {
+    border-color: var(--gold);
+    box-shadow: 0 0 10px var(--gold-glow);
+}
+
+.quick-select option {
+    background: #0b0f19;
+    color: #f8fafc;
+}
+
+/* =========================================================
+   PAGE CONTAINER & GLASS CARDS
+   ========================================================= */
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+}
+
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 580px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: var(--transition);
+    animation: fadeIn 0.4s ease-out;
+}
+
+.glass-card.wide {
+    max-width: 850px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.4rem;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.page-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.8rem;
+}
+
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.5rem 0;
+    border: none;
+}
+
+/* =========================================================
+   FORMS, LABELS & INPUTS
+   ========================================================= */
+
+.form-group {
+    margin-bottom: 1.4rem;
+    text-align: left;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.85rem 1.1rem;
+    background: rgba(11, 15, 25, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 12px var(--gold-glow);
+    background: rgba(11, 15, 25, 0.9);
+}
+
+.input-with-button {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.input-with-button .form-input {
+    flex: 1;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.6rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--gold), #b89324);
+    color: #0b0f19;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #e5c07b, var(--gold));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.45);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--gold-light);
+    border: 1px solid var(--card-border);
+}
+
+.btn-outline:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--danger), #b91c1c);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #f87171, var(--danger));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45);
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.btn-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Home Action Cards Grid */
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.action-card-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: 1.4rem 1rem;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.action-card-btn .action-icon {
+    font-size: 2rem;
+    margin-bottom: 0.2rem;
+}
+
+.action-card-btn:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+}
+
+/* =========================================================
+   TABLE STYLING
+   ========================================================= */
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--card-border);
+    background: rgba(11, 15, 25, 0.4);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+th {
+    background: rgba(212, 175, 55, 0.18);
+    color: var(--gold-light);
+    font-weight: 600;
+    padding: 1rem 1.25rem;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--gold);
+}
+
+td {
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-main);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+tr:hover {
+    background: rgba(212, 175, 55, 0.08);
+}
+
+/* Footer info */
+.footer-text {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem 1.2rem;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .nav-menu {
+        width: 100%;
+        justify-content: center;
+    }
+    .glass-card {
+        padding: 1.5rem;
+    }
+    .btn-group {
+        flex-direction: column;
+    }
+}

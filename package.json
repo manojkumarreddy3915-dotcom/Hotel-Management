@@ -1,0 +1,17 @@
+{
+  "name": "fsd-2-database-(2)",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app7a-0.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.3.0",
+    "mysql2": "^3.24.5"
+  }
+}

@@ -1,0 +1,159 @@
+<!-- UPDATE ROOM DETAILS-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Room - Hotel Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-update">
+
+    <nav class="navbar">
+        <a href="index.html" class="brand">
+            <span class="brand-icon">🏨</span>
+            <span class="brand-title">Grand Horizon Hotel</span>
+        </a>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li class="dropdown">
+                <button class="dropdown-btn">
+                    Room Services <span class="dropdown-arrow">▾</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="list.html" class="dropdown-item">📋 List All Rooms</a></li>
+                    <li><a href="listOne.html" class="dropdown-item">🔍 Search Specific Room</a></li>
+                    <li><a href="insert.html" class="dropdown-item">➕ Add New Room</a></li>
+                    <li><a href="update.html" class="dropdown-item active">✏️ Update Room Details</a></li>
+                    <li><a href="delete.html" class="dropdown-item">🗑️ Delete Room</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="glass-card">
+            <h1 class="page-title">UPDATE ROOM DETAILS</h1>
+            <p class="page-subtitle">Modify room information and occupancy</p>
+            <hr class="divider">
+
+            <div class="form-group">
+                <label class="form-label" for="roomValue">Room ID / Room Number</label>
+                <select id="roomValue" class="form-input">
+                    <option value="">Loading rooms...</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="roomNumber">New Room Number</label>
+                <input type="text" id="roomNumber" class="form-input" placeholder="e.g. R205">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="blockName">New Block Name</label>
+                <input type="text" id="blockName" class="form-input" placeholder="e.g. B Block">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="capacityOfRoom">New Capacity Of Room</label>
+                <input type="number" id="capacityOfRoom" class="form-input" placeholder="e.g. 3">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="numberOfOccupied">New Number Of Occupied</label>
+                <input type="number" id="numberOfOccupied" class="form-input" placeholder="e.g. 1">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="status">Status</label>
+                <select id="status" class="form-input">
+                    <option value="Available">Available</option>
+                    <option value="Occupied">Occupied</option>
+                    <option value="Maintenance">Maintenance</option>
+                </select>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary btn-block" onclick="updateRoom()">✏️ Update Record</button>
+                <button class="btn btn-outline btn-block" onclick="location.href='index.html'">🏠 Home Page</button>
+            </div>
+
+            <p class="footer-text">Grand Horizon Hotel &bull; Front Office Room Management</p>
+        </div>
+    </main>
+
+    <script>
+    function loadRooms()
+    {
+        fetch("/rooms")
+        .then(response=>{
+            if(!response.ok)
+                throw new Error("Unable to load rooms");
+            return response.json();
+        })
+        .then(rooms=>{
+            let roomSelect=document.getElementById("roomValue");
+            roomSelect.innerHTML='<option value="">-- Select a room --</option>';
+            rooms.forEach(room=>{
+                let option=document.createElement("option");
+                option.value=room.room_id;
+                option.textContent=`${room.room_number} (ID: ${room.room_id})`;
+                roomSelect.appendChild(option);
+            });
+            if(rooms.length===0)
+                roomSelect.innerHTML='<option value="">No rooms available</option>';
+        })
+        .catch(error=>{
+            document.getElementById("roomValue").innerHTML='<option value="">Unable to load rooms</option>';
+            alert(error.message);
+        });
+    }
+
+    function updateRoom()
+    {
+        let roomValue=document.getElementById("roomValue").value;
+        let roomNumber=document.getElementById("roomNumber").value;
+        let blockName=document.getElementById("blockName").value;
+        let capacityOfRoom=document.getElementById("capacityOfRoom").value;
+        let numberOfOccupied=document.getElementById("numberOfOccupied").value;
+        let status=document.getElementById("status").value;
+
+        if(!roomValue) {
+            alert("Please specify the room ID or room number to update");
+            return;
+        }
+
+        fetch("/rooms/"+roomValue+"?byId=true",{
+            method:"PUT",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                room_number: roomNumber || undefined,
+                block_name: blockName || undefined,
+                capacity_of_room: capacityOfRoom || undefined,
+                number_of_occupied: numberOfOccupied || undefined,
+                status: status
+            })
+        })
+        .then(response=>{
+            if(response.ok)
+                return response.text();
+
+            return response.text().then(message=>{
+                throw new Error(message);
+            });
+        })
+        .then(message=>{
+            alert(message);
+            location.href="index.html";
+        })
+        .catch(error=>{
+            alert(error.message);
+        });
+    }
+
+    loadRooms();
+    </script>
+</body>
+</html>

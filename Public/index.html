@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-home">
+
+    <nav class="navbar">
+        <a href="index.html" class="brand">
+            <span class="brand-icon">🏨</span>
+            <span class="brand-title">Grand Horizon Hotel</span>
+        </a>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link active">Home</a></li>
+            <li class="dropdown">
+                <button class="dropdown-btn">
+                    Room Services <span class="dropdown-arrow">▾</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="list.html" class="dropdown-item">📋 List All Rooms</a></li>
+                    <li><a href="listOne.html" class="dropdown-item">🔍 Search Specific Room</a></li>
+                    <li><a href="insert.html" class="dropdown-item">➕ Add New Room</a></li>
+                    <li><a href="update.html" class="dropdown-item">✏️ Update Room Details</a></li>
+                    <li><a href="delete.html" class="dropdown-item">🗑️ Delete Room</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="glass-card wide">
+            <h1 class="page-title">ROOM MANAGEMENT DASHBOARD</h1>
+            <p class="page-subtitle">Welcome to the Hotel Room & Occupancy Portal</p>
+
+            <div class="quick-dropdown-wrapper" style="justify-content: center;">
+                <label for="quickSelect" style="color: var(--text-muted); font-size: 0.9rem;">Quick Jump:</label>
+                <select id="quickSelect" class="quick-select" onchange="if(this.value) location.href=this.value;">
+                    <option value="">-- Select Operation --</option>
+                    <option value="list.html">1. List All Rooms</option>
+                    <option value="listOne.html">2. Search Room</option>
+                    <option value="insert.html">3. Add Room</option>
+                    <option value="update.html">4. Update Room</option>
+                    <option value="delete.html">5. Delete Room</option>
+                </select>
+            </div>
+
+            <hr class="divider">
+
+            <div class="action-grid">
+                <div class="action-card-btn" onclick="location.href='list.html'">
+                    <span class="action-icon">📋</span>
+                    <strong>1. List Rooms</strong>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">View all registered rooms</span>
+                </div>
+
+                <div class="action-card-btn" onclick="location.href='listOne.html'">
+                    <span class="action-icon">🔍</span>
+                    <strong>2. Search Room</strong>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Find a room by room number</span>
+                </div>
+
+                <div class="action-card-btn" onclick="location.href='insert.html'">
+                    <span class="action-icon">➕</span>
+                    <strong>3. Add Room</strong>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Create a new room record</span>
+                </div>
+
+                <div class="action-card-btn" onclick="location.href='update.html'">
+                    <span class="action-icon">✏️</span>
+                    <strong>4. Update Room</strong>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Modify room details and occupancy</span>
+                </div>
+
+                <div class="action-card-btn" onclick="location.href='delete.html'">
+                    <span class="action-icon">🗑️</span>
+                    <strong>5. Delete Room</strong>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Remove an outdated room record</span>
+                </div>
+            </div>
+
+            <p class="footer-text">Grand Horizon Hotel & Suites &bull; Room Allocation System</p>
+        </div>
+    </main>
+
+</body>
+</html>

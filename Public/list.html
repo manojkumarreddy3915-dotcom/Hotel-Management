@@ -1,0 +1,95 @@
+<!-- To list all room data -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Rooms - Hotel Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="page-list">
+
+    <nav class="navbar">
+        <a href="index.html" class="brand">
+            <span class="brand-icon">🏨</span>
+            <span class="brand-title">Grand Horizon Hotel</span>
+        </a>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li class="dropdown">
+                <button class="dropdown-btn">
+                    Room Services <span class="dropdown-arrow">▾</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="list.html" class="dropdown-item active">📋 List All Rooms</a></li>
+                    <li><a href="listOne.html" class="dropdown-item">🔍 Search Specific Room</a></li>
+                    <li><a href="insert.html" class="dropdown-item">➕ Add New Room</a></li>
+                    <li><a href="update.html" class="dropdown-item">✏️ Update Room Details</a></li>
+                    <li><a href="delete.html" class="dropdown-item">🗑️ Delete Room</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="glass-card wide">
+            <h1 class="page-title">LIST OF ROOMS</h1>
+            <p class="page-subtitle">Directory of all hotel room records</p>
+            <hr class="divider">
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <button class="btn btn-primary" onclick="loadRooms()">
+                    🔄 Refresh List
+                </button>
+                <button class="btn btn-outline" onclick="location.href='index.html'">
+                    🏠 Home Page
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table id="roomTable">
+                    <!-- Populated dynamically via JavaScript -->
+                </table>
+            </div>
+
+            <p class="footer-text">Grand Horizon Hotel &bull; Reception & Housekeeping Log</p>
+        </div>
+    </main>
+
+    <script>
+        loadRooms();
+        function loadRooms() {
+            fetch("/rooms")
+                .then(response => response.json())
+                .then(data => {
+                    let table = document.getElementById("roomTable");
+                    table.innerHTML = `
+            <tr>
+                <th>Room ID</th>
+                <th>Room Number</th>
+                <th>Block Name</th>
+                <th>Capacity Of Room</th>
+                <th>Number Of Occupied</th>
+                <th>Status</th>
+            </tr>`;
+
+                    data.forEach(room => {
+                        table.innerHTML += `
+                <tr>
+                    <td><strong>#${room.room_id}</strong></td>
+                    <td>${room.room_number}</td>
+                    <td>${room.block_name}</td>
+                    <td>${room.capacity_of_room}</td>
+                    <td>${room.number_of_occupied}</td>
+                    <td>${room.status}</td>
+                </tr>
+                `;
+                    });
+                });
+        }
+    </script>
+</body>
+
+</html>
